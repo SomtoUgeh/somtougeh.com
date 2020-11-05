@@ -34,7 +34,7 @@
     "semi": ["error", "always"],
     "no-undef": "error",
     "no-empty": "warn",
-    "no-console": "warn",
+    "no-console": "error",
     "no-invalid-regexp": 1,
     "no-unreachable": "error",
     "no-func-assign": "error",

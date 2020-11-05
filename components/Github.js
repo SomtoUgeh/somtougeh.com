@@ -5,6 +5,5 @@ export default function Github() {
   const { data } = useSWR('/api/github', fetcher);
   if (!data) return null;
 
-  console.log(data);
   return null;
 }
