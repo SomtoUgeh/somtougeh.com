@@ -7,7 +7,10 @@ module.exports = async (req, res) => {
     return res.status(500).json({ message: 'Issues getting top tracks' });
   }
 
-  const { data: items } = await response;
+  const {
+    data: { items }
+  } = await response;
+
   const tracks = items.slice(0, 10).map(track => ({
     artist: track.artists.map(_artist => _artist.name).join(', '),
     songUrl: track.external_urls.spotify,
