@@ -1,13 +1,13 @@
-import { getNowPlaying } from '@/lib/spotify';
+const { getNowPlaying } = require('@/lib/spotify');
 
-export default async (_, res) => {
+module.exports = async (req, res) => {
   const response = await getNowPlaying();
 
   if (response.status === 204 || response.status > 400) {
     return res.status(200).json({ isPlaying: false });
   }
 
-  const song = await response.json();
+  const { data: song } = await response;
   const isPlaying = song.is_playing;
   const title = song.item.name;
   const artist = song.item.artists.map(_artist => _artist.name).join(', ');

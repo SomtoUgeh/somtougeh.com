@@ -1,9 +1,13 @@
-import { getTopTracks } from '@/lib/spotify';
+const { getTopTracks } = require('@/lib/spotify');
 
-export default async (_, res) => {
+module.exports = async (req, res) => {
   const response = await getTopTracks();
-  const { items } = await response.json();
 
+  if (response.status === 204 || response.status > 400) {
+    return res.status(500).json({ message: 'Issues getting top tracks' });
+  }
+
+  const { data: items } = await response;
   const tracks = items.slice(0, 10).map(track => ({
     artist: track.artists.map(_artist => _artist.name).join(', '),
     songUrl: track.external_urls.spotify,

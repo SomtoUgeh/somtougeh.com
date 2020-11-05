@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import TopTracks from '@/components/TopTracks';
 import styles from '../styles/Home.module.css';
+import NowPlaying from '@/components/NowPlaying';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
 
         <div className={styles.grid}>
           <TopTracks />
+          <NowPlaying />
         </div>
       </main>
 
