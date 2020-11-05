@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Github from '@/components/Github';
 import TopTracks from '@/components/TopTracks';
 import styles from '../styles/Home.module.css';
 import NowPlaying from '@/components/NowPlaying';
@@ -24,6 +25,7 @@ export default function Home() {
         <div className={styles.grid}>
           <TopTracks />
           <NowPlaying />
+          <Github />
         </div>
       </main>
 
