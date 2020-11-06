@@ -1,8 +1,5 @@
 import Head from 'next/head';
-import Github from '@/components/Github';
-import TopTracks from '@/components/TopTracks';
 import styles from '../styles/Home.module.css';
-import NowPlaying from '@/components/NowPlaying';
 
 export default function Home() {
   return (
@@ -14,31 +11,22 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to my website!{' '}
+          <span role="img" aria-label="happy">
+            😁
+          </span>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          This site is still in development{' '}
+          <code className={styles.code}>
+            Bear with me{' '}
+            <span role="img" aria-label="cry">
+              😢
+            </span>
+          </code>
         </p>
-
-        <div className={styles.grid}>
-          <TopTracks />
-          <NowPlaying />
-          <Github />
-        </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   );
 }

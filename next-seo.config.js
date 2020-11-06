@@ -1,6 +1,5 @@
-const title = 'Somto Ugeh – Developer, writer, creator.';
-const description =
-  'Front-end developer, JavaScript enthusiast, and course creator.';
+const title = 'Somto M.Ugeh – Developer && writer';
+const description = 'Front-end developer, JavaScript enthusiast.';
 
 const SEO = {
   title,
@@ -22,8 +21,8 @@ const SEO = {
     ]
   },
   twitter: {
-    handle: '@leeerob',
-    site: '@leeerob',
+    handle: '@ugehsomto',
+    site: '@ugehsomto',
     cardType: 'summary_large_image'
   }
 };
