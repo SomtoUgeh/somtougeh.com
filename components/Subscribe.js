@@ -1,5 +1,8 @@
 import axios from 'axios';
+import * as yup from 'yup';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Heading,
   InputGroup,
@@ -13,28 +16,22 @@ import {
   FormErrorMessage
 } from '@chakra-ui/core';
 
+const NewsletterSchema = yup.object().shape({
+  email: yup
+    .string()
+    .trim()
+    .email('Ugh! Please enter a valid email.')
+    .required('Oops! The email field is empty.')
+});
+
 export default function Subscribe() {
   const toast = useToast();
-  const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const [error, setError] = useState({
-    type: null,
-    message: null
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(NewsletterSchema)
   });
 
-  const handleFormSubmit = async e => {
-    e.preventDefault();
-
-    if (email.trim().length < 1) {
-      setError({
-        type: 'email',
-        message: 'Please provide an email'
-      });
-
-      return;
-    }
-
+  const handleFormSubmit = async ({ email }) => {
     setIsLoading(true);
 
     try {
@@ -42,7 +39,7 @@ export default function Subscribe() {
         data: { message }
       } = await axios.post(`/api/newsletter`, { email });
 
-      setEmail('');
+      reset();
       setIsLoading(false);
 
       toast({
@@ -78,7 +75,7 @@ export default function Subscribe() {
       borderRadius={4}
       border="1px solid"
       borderColor="blue.200"
-      onSubmit={handleFormSubmit}
+      onSubmit={handleSubmit(handleFormSubmit)}
     >
       <Heading as="h5" size="lg" mb={2}>
         Subscribe to the newsletter
@@ -89,17 +86,14 @@ export default function Subscribe() {
         articles.
       </Text>
 
-      <FormControl isInvalid={Boolean(error.type === 'email')}>
+      <FormControl isInvalid={Boolean(errors.email && errors.email.message)}>
         <InputGroup mt={4}>
           <Input
+            name="email"
             type="email"
-            value={email}
+            ref={register}
             placeholder="hello@email.com"
             aria-label="Email for newsletter"
-            onChange={({ target }) => {
-              setEmail(target.value);
-              setError({ type: null, message: null });
-            }}
           />
 
           <InputRightElement width="6.75rem">
@@ -114,8 +108,8 @@ export default function Subscribe() {
           </InputRightElement>
         </InputGroup>
 
-        {error.type === 'email' ? (
-          <FormErrorMessage>{error.message}</FormErrorMessage>
+        {errors.email ? (
+          <FormErrorMessage>{errors.email.message}</FormErrorMessage>
         ) : null}
       </FormControl>
     </Box>
