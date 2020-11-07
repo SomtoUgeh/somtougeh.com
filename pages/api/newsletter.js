@@ -8,16 +8,17 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const response = await subscribeToNewsletter(email);
-
-    if (response.status >= 400) {
+    await subscribeToNewsletter(email);
+    return res.status(201).json({ message: 'You are now subscribed.' });
+  } catch (error) {
+    if (error.response.status >= 400) {
       return res.status(400).json({
         error: `There was an error subscribing to the newsletter.`
       });
     }
 
-    return res.status(201).json({ error: '' });
-  } catch (error) {
-    return res.status(500).json({ error: error.message || error.toString() });
+    return res.status(500).json({
+      error: error.message || error.toString() || error.response.data
+    });
   }
 };

@@ -1,39 +1,39 @@
 import { Global, css } from '@emotion/core';
-import { extendTheme, useColorMode } from '@chakra-ui/core';
+import { CSSReset, theme } from '@chakra-ui/core';
 
-const config = {
-  useSystemColorMode: false,
-  initialColorMode: 'light'
-};
+const breakpoints = [
+  '320px',
+  '375px',
+  '425px',
+  '768px',
+  '1024px',
+  '1440px',
+  '2560px'
+];
 
-const colors = {
-  brand: {
-    900: '#1a365d',
-    800: '#153e75',
-    700: '#2a69ac'
-  }
-};
-
-const customTheme = extendTheme({ config, colors });
+breakpoints.mobileS = breakpoints[0];
+breakpoints.mobileM = breakpoints[1];
+breakpoints.mobileL = breakpoints[2];
+breakpoints.tablet = breakpoints[3];
+breakpoints.laptop = breakpoints[4];
+breakpoints.laptopL = breakpoints[5];
+breakpoints.desktop = breakpoints[6];
 
 const GlobalStyle = ({ children }) => {
-  const { colorMode } = useColorMode();
+  // const { colorMode } = useColorMode();
 
   return (
     <>
+      <CSSReset />
       <Global
         styles={css`
           ::selection {
-            background-color: #47a3f3;
             color: #fefefe;
+            background-color: #47a3f3;
           }
 
           html {
             scroll-behavior: smooth;
-          }
-
-          #__next {
-            background: ${colorMode === 'light' ? 'white' : '#171923'};
           }
         `}
       />
@@ -42,4 +42,9 @@ const GlobalStyle = ({ children }) => {
   );
 };
 
-export { customTheme, GlobalStyle };
+export { GlobalStyle };
+
+export default {
+  ...theme,
+  breakpoints
+};
