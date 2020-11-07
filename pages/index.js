@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import Subscribe from '@/components/Subscribe';
 
 export default function Home() {
   return (
@@ -26,6 +27,8 @@ export default function Home() {
             </span>
           </code>
         </p>
+
+        <Subscribe />
       </main>
     </div>
   );
